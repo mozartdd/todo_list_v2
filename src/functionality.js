@@ -40,7 +40,7 @@ export default class Project {
 }
 
 // Creates new Project and adds it to project library.
-function makeNewProject(projectName) {
+export function makeNewProject(projectName) {
     if (projectName === "") return null;
 
     const project = new Project(projectName);
@@ -53,3 +53,29 @@ function makeNewProject(projectName) {
     return project
 }
 
+// Removes project from project library array.
+export function removeProject(projectId) {
+    const idx = projectLibrary.findIndex(p => p.id === projectId);
+    if (idx === -1) return;
+
+    // If we are removing current active project.
+    if (projectLibrary[idx].id === currentActiveProject) {
+        projectLibrary.splice(idx, 1);
+        if (projectLibrary.length > 0) { // If there is project's in project library.
+            currentActiveProject = projectLibrary[0].id;
+        } else {
+            currentActiveProject = null;
+        }
+    } else {
+        projectLibrary.splice(idx, 1);
+    }
+}
+
+// Sets project as active.
+export function toggleActiveProject(projectId) {
+    currentActiveProject = projectLibrary;
+}
+
+export function returnActiveProjectId() {
+    return currentActiveProject;
+}
