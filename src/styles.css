@@ -1,0 +1,141 @@
+:root {
+    --full-height: 100vh;
+    --header-text: clamp(2.5rem, 3vw, 3rem);
+    --medium-margin: 1rem;
+    --large-margin: 3rem;
+    --main-color: #ffffff;
+    --secondary-color: #FFD5C2;
+    --completed: #588B8B;
+    --medium-priority: #F28F3B;
+    --high-priority: #C8553D;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  background-color: var(--secondary-color);
+
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+
+  display: flex;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+#root, #__next {
+  isolation: isolate;
+}
+/* NAV BAR STYLING SECTION */
+nav {
+    background-color: var(--secondary-color);
+    min-width: 350px;
+
+    flex: 1;
+    height: var(--full-height);
+}
+#title {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: var(--large-margin);
+}
+h1 {
+    font-size: var(--header-text);
+    padding-left: .5rem;
+
+    color: var(--high-priority);
+}
+#add-project-btn {
+    padding-right: .5rem;
+    width: 50px;
+
+    cursor: pointer;
+}
+#add-project-btn:hover, #add-task:hover {
+    transform: scale(1.05);
+    transition: .5s;
+}
+
+main {
+    background-color: var(--main-color);
+
+    flex: 6;
+    min-width: 750px;
+
+    margin: var(--large-margin);
+    margin-left: 0;
+    border-radius: .5rem var(--large-margin) var(--large-margin) .5rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+#add-task {
+    background-color: var(--high-priority);
+    color: var(--main-color);
+
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    margin-right: var(--large-margin);
+    margin-top: 1rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    border-radius: var(--medium-margin);
+    width: 150px;
+}
+#current-project {
+    display: flex;
+    gap: var(--medium-margin);
+}
+#current-project > p {
+    color: var(--medium-priority);
+    font-size: 1.5rem;
+    padding: var(--medium-margin) 0 0 var(--medium-margin);
+}
+table {
+    width: 100%;
+    border: 2px solid;
+
+    color: var(--high-priority);
+    background-color: var(--secondary-color);
+    font-size: 2rem;
+    font-weight: bold;
+    
+    text-align: center;
+
+    margin-top: var(--medium-margin);
+}
