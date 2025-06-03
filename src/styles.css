@@ -1,13 +1,16 @@
 :root {
     --full-height: 100vh;
     --header-text: clamp(2.5rem, 3vw, 3rem);
-    --medium-margin: 1rem;
-    --large-margin: 3rem;
+    --medium-spacing: 1rem;
+    --large-spacing: 3rem;
     --main-color: #ffffff;
     --secondary-color: #FFD5C2;
     --completed: #588B8B;
     --medium-priority: #F28F3B;
     --high-priority: #C8553D;
+    --medium-font: 1.5rem;
+    --small-spacing: .5rem;
+
 }
 
 *, *::before, *::after {
@@ -69,16 +72,16 @@ nav {
     display: flex;
     justify-content: space-between;
 
-    margin-top: var(--large-margin);
+    margin-top: var(--large-spacing);
 }
 h1 {
     font-size: var(--header-text);
-    padding-left: .5rem;
+    padding-left: var(--small-spacing);
 
     color: var(--high-priority);
 }
 #add-project-btn {
-    padding-right: .5rem;
+    padding-right: var(--small-spacing);
     width: 50px;
 
     cursor: pointer;
@@ -94,9 +97,9 @@ main {
     flex: 6;
     min-width: 750px;
 
-    margin: var(--large-margin);
+    margin: var(--large-spacing);
     margin-left: 0;
-    border-radius: .5rem var(--large-margin) var(--large-margin) .5rem;
+    border-radius: var(--small-spacing) var(--large-spacing) var(--large-spacing) var(--small-spacing);
 }
 
 header {
@@ -110,21 +113,21 @@ header {
     cursor: pointer;
     border: none;
     font-weight: bold;
-    margin-right: var(--large-margin);
-    margin-top: 1rem;
-    height: 3rem;
-    font-size: 1.5rem;
-    border-radius: var(--medium-margin);
+    margin-right: var(--large-spacing);
+    margin-top: var(--medium-spacing);
+    height: var(--large-spacing);
+    font-size: var(--medium-font);
+    border-radius: var(--medium-spacing);
     width: 150px;
 }
 #current-project {
     display: flex;
-    gap: var(--medium-margin);
+    gap: var();
 }
 #current-project > p {
     color: var(--medium-priority);
-    font-size: 1.5rem;
-    padding: var(--medium-margin) 0 0 var(--medium-margin);
+    font-size: var(--medium-font);
+    padding: var(--medium-spacing) 0 0 var(--medium-spacing);
 }
 table {
     width: 100%;
@@ -132,10 +135,14 @@ table {
 
     color: var(--high-priority);
     background-color: var(--secondary-color);
-    font-size: 2rem;
+    font-size: var(--medium-font);
     font-weight: bold;
     
     text-align: center;
+    border-collapse: collapse;
 
-    margin-top: var(--medium-margin);
+    margin-top: var(--medium-spacing);
+}
+th {
+    border: 2px solid;
 }
