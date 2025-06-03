@@ -76,6 +76,6 @@ export function toggleActiveProject(projectId) {
     currentActiveProject = projectLibrary;
 }
 
-export function returnActiveProjectId() {
+export function getActiveProjectId() {
     return currentActiveProject;
 }
