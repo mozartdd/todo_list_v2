@@ -5,7 +5,7 @@ const currentActiveProject = null; // Variable which will hold current active pr
 // Project creating class.
 export default class Project {
     static id = 0;
-    constructor(name) {
+    constructor (name) {
         this.id = `Project-${++Project.id}`;
         this.name = name;
         this.tasks = [];
@@ -25,7 +25,7 @@ export default class Project {
     }
 
     removeTask(taskId) {
-        const idx = this.tasks.indexOf(task => task.id === taskId);
+        const idx = this.tasks.findIndex(task => task.id === taskId);
         if (idx !== -1) {
             this.tasks.splice(idx, 1);
         }
@@ -38,3 +38,18 @@ export default class Project {
         }
     }
 }
+
+// Creates new Project and adds it to project library.
+function makeNewProject(projectName) {
+    if (projectName === "") return null;
+
+    const project = new Project(projectName);
+    project.push(projectLibrary); 
+
+    if (!currentActiveProject) { // If no active project make new project active.
+        currentActiveProject = project.id;
+        project.push(projectLibrary);
+    }
+    return project
+}
+
