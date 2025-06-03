@@ -1,4 +1,5 @@
 import {
+    makeNewProject,
     removeProject,
     setActiveProject
 } from "./functionality";
@@ -8,6 +9,7 @@ import { updateDisplay } from "./ui.js";
 const projectDialog = document.querySelector("[data-project-dialog]");
 const closeProjectDialogBtn = document.querySelector("[data-close-module]");
 const createProjectDialogBtn = document.querySelector("[data-make-project]");
+const projectNameInput = document.querySelector("[data-project-name]");
 
 closeProjectDialogBtn.addEventListener("click", (event) => {
     event.preventDefault();
@@ -15,8 +17,10 @@ closeProjectDialogBtn.addEventListener("click", (event) => {
 });
 
 createProjectDialogBtn.addEventListener("click", (event) => {
+    makeNewProject(projectNameInput.value)
     event.preventDefault();
     projectDialog.close();
+    updateDisplay();
 });
 
 export function eventDelegation() {
@@ -27,6 +31,7 @@ export function eventDelegation() {
 
         // Shows project dialog window.
         if (target.dataset.projectBtn) {
+            projectNameInput.value = "";
             projectDialog.showModal();
             return;
         }
@@ -46,7 +51,7 @@ export function eventDelegation() {
             const project = target.closest("li");
             if (!project) return;
             const id = project.getAttribute("data-id")
-            toggleActiveProject(id);
+            setActiveProject(id);
             updateDisplay();
             return;
         }

@@ -1,5 +1,5 @@
 export const projectLibrary = [];
-let currentActiveProject = null;
+export let currentActiveProject = null;
 
 export default class Project {
     static id = 0;

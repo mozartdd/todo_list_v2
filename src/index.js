@@ -1,4 +1,4 @@
 import "./styles.css";
-import {eventDelegation} from './controls.js'
+import {updateDisplay} from './ui.js'
 
-eventDelegation();
+updateDisplay();

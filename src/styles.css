@@ -68,6 +68,11 @@ nav {
     flex: 1;
     height: var(--full-height);
 }
+nav ul {
+  display: flex;
+  flex-direction: row;
+  background-color: red;
+}
 #title {
     display: flex;
     justify-content: space-between;
