@@ -1,8 +1,6 @@
-// Array to store all projects.
-const projectLibrary = [];
-const currentActiveProject = null; // Variable which will hold current active project if none it is set to null.
+export const projectLibrary = [];
+let currentActiveProject = null;
 
-// Project creating class.
 export default class Project {
     static id = 0;
     constructor (name) {
@@ -13,7 +11,7 @@ export default class Project {
 
     createTask(taskName, dueDate, importance, description) {
         const task = {
-            id: `task-${Math.floor(Math.random() * Date.now()).toString(36)}`,
+            id: `task-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
             priority: importance,
             name: taskName,
             due: dueDate,
@@ -33,6 +31,7 @@ export default class Project {
 
     toggleTaskStatus(taskId) {
         const task = this.tasks.find(task => task.id === taskId);
+        // Toggle completion status of task if found.
         if (task) {
             task.isCompleted = !task.isCompleted;
         }
@@ -41,14 +40,13 @@ export default class Project {
 
 // Creates new Project and adds it to project library.
 export function makeNewProject(projectName) {
-    if (projectName === "") return null;
+    if (!projectName) return null;
 
     const project = new Project(projectName);
-    project.push(projectLibrary); 
+    projectLibrary.push(project); 
 
-    if (!currentActiveProject) { // If no active project make new project active.
+    if (!currentActiveProject) { 
         currentActiveProject = project.id;
-        project.push(projectLibrary);
     }
     return project
 }
@@ -58,10 +56,10 @@ export function removeProject(projectId) {
     const idx = projectLibrary.findIndex(p => p.id === projectId);
     if (idx === -1) return;
 
-    // If we are removing current active project.
+    // If removing the active project, set new active project or reset to null.
     if (projectLibrary[idx].id === currentActiveProject) {
         projectLibrary.splice(idx, 1);
-        if (projectLibrary.length > 0) { // If there is project's in project library.
+        if (projectLibrary.length > 0) {
             currentActiveProject = projectLibrary[0].id;
         } else {
             currentActiveProject = null;
@@ -71,11 +69,15 @@ export function removeProject(projectId) {
     }
 }
 
-// Sets project as active.
-export function toggleActiveProject(projectId) {
-    currentActiveProject = projectLibrary;
+// Update the active project ID to the specified project.
+export function setActiveProject(projectId) {
+    currentActiveProject = projectId;
 }
 
 export function getActiveProjectId() {
     return currentActiveProject;
+}
+
+export function getActiveProject() {
+    return projectLibrary.find(p => p.id === currentActiveProject);
 }

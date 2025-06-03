@@ -173,11 +173,18 @@ dialog form input:focus {
 dialog form button:first-of-type {
   background-color: var(--secondary-color);
   color: var(--high-priority);
-  font-size: var(--medium-font);
+  font-size: 2.2rem;
   cursor: pointer;
 
   align-self: flex-end;
   border: none;
   height: 0;
-  transform: translate(5px, -15px);
+  transform: translate(1px, -25px);
+}
+dialog form button:first-of-type:focus {
+  outline: none;
+}
+dialog form button:first-of-type:hover {
+  transform: translate(1px, -30px) scale(1.1);
+  transition: .5s;
 }
