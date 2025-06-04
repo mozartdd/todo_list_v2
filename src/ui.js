@@ -8,6 +8,7 @@ const currentProjectContainer = document.querySelector("[data-current-project]")
 export function updateDisplay() {
     renderProjects();
     renderCurrentProject();
+    renderTasks();
 }
 
 function renderProjects() {
@@ -32,5 +33,23 @@ function renderProjects() {
 function renderCurrentProject() {
     const activeProject = getActiveProject();
     currentProjectContainer.textContent = activeProject.name;
+    console.log(activeProject.tasks);
+}
+
+function renderTasks() {
+    taskContainer.innerHTML = ``;
+    const activeProject = getActiveProject();
+
+    activeProject.tasks.forEach((task) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${task.priority}</td>
+            <td>${task.name}</td>
+            <td>${task.due}</td>
+            <td>${task.desc}</td>
+            `
+        taskContainer.appendChild(tr);
+    })
+
 }
 

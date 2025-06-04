@@ -2,7 +2,8 @@ import {
     getActiveProject,
     makeNewProject,
     removeProject,
-    setActiveProject
+    setActiveProject,
+    projectLibrary
 } from "./functionality";
 
 import { updateDisplay } from "./ui.js";
@@ -50,9 +51,9 @@ closeTaskBtn.addEventListener("click", (event) => {
 makeTask.addEventListener("click", (event) => {
     const currentProject = getActiveProject();
     currentProject.createTask(taskName.value, taskDue.value, taskPriority.value, taskDescription.value);
-    console.log(currentProject);
     event.preventDefault();
     taskDialog.close();
+    updateDisplay();
 })
 
 
@@ -64,7 +65,7 @@ export function eventDelegation() {
 
         // Shows project dialog window.
         if (target.dataset.projectBtn) {
-            projectNameInput.value = "";
+            projectNameInput.value = `New Project`;
             event.stopPropagation();
             projectDialog.showModal();
             updateDisplay();

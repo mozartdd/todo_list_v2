@@ -132,7 +132,7 @@ main {
 
     margin: var(--large-spacing);
     margin-left: 0;
-    border-radius: var(--small-spacing) var(--large-spacing) var(--large-spacing) var(--small-spacing);
+    border-radius: var(--small-spacing);
 }
 
 header {
