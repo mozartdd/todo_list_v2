@@ -10,7 +10,7 @@ export default class Project {
     }
 
     createTask(taskName, dueDate, importance, description) {
-        if (!taskName || !dueDate || !importance || !description) return null;
+        if (!(taskName || dueDate || importance || description)) return null;
         const task = {
             id: `task-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
             priority: importance,

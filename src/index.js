@@ -1,4 +1,8 @@
 import "./styles.css";
-import {updateDisplay} from './ui.js'
+import { makeNewProject } from "./functionality.js";
+import {updateDisplay} from "./ui.js";
+import {eventDelegation} from "./controls.js";
 
-updateDisplay();
+    makeNewProject("Clean house");
+    updateDisplay();
+    eventDelegation();

@@ -65,7 +65,9 @@ export function eventDelegation() {
         // Shows project dialog window.
         if (target.dataset.projectBtn) {
             projectNameInput.value = "";
+            event.stopPropagation();
             projectDialog.showModal();
+            updateDisplay();
             return;
         }
         // Event listener to remove project from list.
@@ -73,6 +75,7 @@ export function eventDelegation() {
             const project = target.closest("li");
             if (!project) return;
             const id = project.getAttribute("data-id");
+            event.stopPropagation();
             removeProject(id);
             updateDisplay();
             return;
@@ -82,17 +85,11 @@ export function eventDelegation() {
             const project = target.closest("li");
             if (!project) return;
             const id = project.getAttribute("data-id");
+            event.stopPropagation();
             setActiveProject(id);
             updateDisplay();
             return;
         }
-
-        // // Task container event delegation.
-        // const main = document.querySelector("main");
-        // main.addEventListener("click", (event) => {
-        //     const target = event.target;
-        //     if (target.dataset)
-        // })
     });
 
     // TODO: Add event listeners to task buttons & task dialog window.
