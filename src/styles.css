@@ -70,8 +70,34 @@ nav {
 }
 nav ul {
   display: flex;
-  flex-direction: row;
-  background-color: red;
+  flex-direction: column;
+  padding-left: 0px;
+}
+nav ul li {
+  margin-top: var(--medium-spacing);
+  display: flex;
+  justify-content: space-between;
+
+  font-size: var(--medium-font);
+  cursor: pointer;
+  font-weight: bold;
+
+  color: var(--medium-priority);
+  border-bottom: 2px solid var(--high-priority);
+  border-radius: var(--small-spacing);
+  width: 100%;
+  padding-left: var(--small-spacing);
+}
+.delete-project-btn {
+  background-color: var(--secondary-color);
+  color: var(--medium-priority);
+
+  border: none;
+  margin-right: var(--small-spacing);
+  cursor: pointer;
+}
+.delete-project-btn:hover {
+  color: var(--high-priority);
 }
 #title {
     display: flex;
@@ -101,6 +127,8 @@ main {
 
     flex: 6;
     min-width: 750px;
+
+    box-shadow: 0 0 10px var(--high-priority);
 
     margin: var(--large-spacing);
     margin-left: 0;
@@ -186,7 +214,7 @@ dialog form button:first-of-type {
   height: 0;
   transform: translate(1px, -25px);
 }
-dialog form button:first-of-type:focus {
+dialog form button:first-of-type:focus, .delete-project-btn {
   outline: none;
 }
 dialog form button:first-of-type:hover {

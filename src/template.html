@@ -11,7 +11,7 @@
             <h1>Organized</h1>
             <img id="add-project-btn" data-project-btn="true" src="./assets/add_icon.svg" alt="Icon of +, pressing which you can add project to page">
         </div>
-        <div data-project-container>
+        <div data-project-container id="project-container">
             <ul>
                 
             </ul>
@@ -22,8 +22,30 @@
             <form>
                 <button data-close-module>x</button>
                 <label for="project-name" name="name">Project</label>
-                <input data-project-name type="text" name="project-name" id="name">
-                <button data-make-project>Make project</button>
+                <input data-project-name type="text" name="project-name" id="name" required>
+                <button type="submit" data-make-project>Make project</button>
+            </form>
+        </dialog>
+        <dialog data-task-dialog>
+            <form>
+                <button data-close-task>x</button>
+                <label for="task-name" name="name">Task</label>
+                <input data-task-name type="text" name="task-name" id="name" required>
+
+                <label for="due-date" name="due">Due date</label>
+                <input data-task-due type="date" name="task-due" id="due-date" required>
+
+                <label for="priority">Task priority</label>
+                <select data-task-priority name="priority" id="priority">
+                    <option value="none" selected disabled>Select task priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+
+                <label for="task-description" name="description">Description</label>
+                <textarea data-task-desc name="description" id="task-description"></textarea>
+                <button type="submit" data-make-task>Make task</button>
             </form>
         </dialog>
         <header>
