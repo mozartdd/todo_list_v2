@@ -158,9 +158,14 @@ header {
     gap: var();
 }
 #current-project > p {
-    color: var(--medium-priority);
     font-size: var(--medium-font);
     padding: var(--medium-spacing) 0 0 var(--medium-spacing);
+}
+#current-project > p:first-child, #current-project > p:nth-of-type(2) {
+  color: var(--medium-priority);
+}
+#active-project {
+  color: var(--high-priority);
 }
 table {
     width: 100%;

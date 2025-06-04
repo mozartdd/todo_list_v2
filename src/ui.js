@@ -7,6 +7,7 @@ const currentProjectContainer = document.querySelector("[data-current-project]")
 
 export function updateDisplay() {
     renderProjects();
+    renderCurrentProject();
 }
 
 function renderProjects() {
@@ -27,3 +28,9 @@ function renderProjects() {
         projectItem.appendChild(closeButton);
     })
 }
+
+function renderCurrentProject() {
+    const activeProject = getActiveProject();
+    currentProjectContainer.textContent = activeProject.name;
+}
+

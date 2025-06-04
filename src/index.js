@@ -4,5 +4,6 @@ import {updateDisplay} from "./ui.js";
 import {eventDelegation} from "./controls.js";
 
     makeNewProject("Clean house");
+    makeNewProject("Study web development");
     updateDisplay();
     eventDelegation();
