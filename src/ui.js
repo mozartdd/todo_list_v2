@@ -1,5 +1,4 @@
-import { projectLibrary, getActiveProject, makeNewProject} from "./functionality";
-import { eventDelegation } from "./controls";
+import { projectLibrary, getActiveProject } from "./functionality";
 
 const projectContainer = document.querySelector("ul");
 const taskContainer = document.querySelector("tbody");

@@ -20,6 +20,7 @@ closeProjectDialogBtn.addEventListener("click", (event) => {
 });
 
 createProjectDialogBtn.addEventListener("click", (event) => {
+    if (!projectNameInput.value.trim()) return;
     makeNewProject(projectNameInput.value)
     event.preventDefault();
     projectDialog.close();
@@ -43,13 +44,15 @@ addTaskBtn.addEventListener("click", () => {
     taskDescription.value = "";
     taskDialog.showModal();
 })
+
 closeTaskBtn.addEventListener("click", (event) => {
     event.preventDefault();
     taskDialog.close();
 })
-//createTask(taskName, dueDate, importance, description)
+
 makeTask.addEventListener("click", (event) => {
     const currentProject = getActiveProject();
+    if (!taskName.value.trim() || !taskDue.value || taskPriority.value === "") return;
     currentProject.createTask(taskName.value, taskDue.value, taskPriority.value, taskDescription.value);
     event.preventDefault();
     taskDialog.close();
@@ -92,6 +95,4 @@ export function eventDelegation() {
             return;
         }
     });
-
-    // TODO: Add event listeners to task buttons & task dialog window.
 }
