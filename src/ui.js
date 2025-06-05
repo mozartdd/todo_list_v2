@@ -31,8 +31,11 @@ function renderProjects() {
 
 function renderCurrentProject() {
     const activeProject = getActiveProject();
-    currentProjectContainer.textContent = activeProject.name;
-    console.log(activeProject.tasks);
+    if (activeProject) {
+        currentProjectContainer.textContent = activeProject.name;
+    } else {
+        currentProjectContainer.textContent = "No active project";
+    }
 }
 
 function renderTasks() {
