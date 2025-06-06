@@ -126,7 +126,7 @@ export function eventDelegation() {
             const id = tr.getAttribute("data-id");
             event.stopPropagation();
             const currentTask = currentProject.tasks.find(task => task.id === id);
-            currentTask.toggleTaskStatus(id);
+            currentTask.toggleTaskStatus();
             updateDisplay();
             return;
         }

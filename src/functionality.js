@@ -27,7 +27,8 @@ export class Task {
         this.description = description;
     }
 
-    toggleTaskStatus(taskId) {
+    // Toggles task's complete status.
+    toggleTaskStatus() {
         this.isCompleted = !this.isCompleted;
     }
     }
