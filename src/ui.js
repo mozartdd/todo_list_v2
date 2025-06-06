@@ -13,6 +13,7 @@ export function updateDisplay() {
 function renderProjects() {
     projectContainer.innerHTML = ``;
 
+    // Iterates over all projects and displays it's current state.
     projectLibrary.forEach((project) => {
         const projectItem = document.createElement("li");
         projectItem.dataset.projectItem = "true";
@@ -29,6 +30,7 @@ function renderProjects() {
     })
 }
 
+// Displays current active project on screen.
 function renderCurrentProject() {
     const activeProject = getActiveProject();
     if (activeProject) {
@@ -38,20 +40,26 @@ function renderCurrentProject() {
     }
 }
 
+// Iterates over all tasks and displays it's current state.
 function renderTasks() {
     taskContainer.innerHTML = ``;
     const activeProject = getActiveProject();
 
-    activeProject.tasks.forEach((task) => {
+    if (activeProject === null) return;
+    else {
+        activeProject.tasks.forEach((task) => {
         const tr = document.createElement("tr");
+        tr.dataset.id = "true";
+        tr.dataset.id = task.id;
         tr.innerHTML = `
-            <td>${task.priority}</td>
-            <td>${task.name}</td>
-            <td>${task.due}</td>
-            <td>${task.desc}</td>
+            <td>${task.importance}</td>
+            <td>${task.taskName}</td>
+            <td>${task.dueDate}</td>
+            <td>${task.description}</td>
+            <td><button data-rm-task="true">x</button></td>
             `
         taskContainer.appendChild(tr);
     })
-
+    }
 }
 

@@ -9,35 +9,28 @@ export default class Project {
         this.tasks = [];
     }
 
-    createTask(taskName, dueDate, importance, description) {
-        if (!taskName || !dueDate || !importance) return null;
-        const task = {
-            id: `task-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-            priority: importance,
-            name: taskName,
-            due: dueDate,
-            desc: description,
-            isCompleted: false
-        }
-        this.tasks.push(task);
-        return task;
-    }
-
     removeTask(taskId) {
         const idx = this.tasks.findIndex(task => task.id === taskId);
         if (idx !== -1) {
             this.tasks.splice(idx, 1);
         }
     }
+}
+
+export class Task {
+    constructor(taskName, dueDate, importance, description) {
+        this.isCompleted = false;
+        this.id = `Task-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+        this.taskName = taskName;
+        this.dueDate = dueDate;
+        this.importance = importance;
+        this.description = description;
+    }
 
     toggleTaskStatus(taskId) {
-        const task = this.tasks.find(task => task.id === taskId);
-        // Toggle completion status of task if found.
-        if (task) {
-            task.isCompleted = !task.isCompleted;
-        }
+        this.isCompleted = !this.isCompleted;
     }
-}
+    }
 
 // Creates new Project and adds it to project library.
 export function makeNewProject(projectName) {
@@ -50,6 +43,19 @@ export function makeNewProject(projectName) {
         currentActiveProject = project.id;
     }
     return project
+}
+
+// Makes new Task and adds it to the project tasks array.
+export function createTask(taskName, dueDate, importance, description) {
+    if (!taskName || !dueDate || !importance) return null;
+
+    const currentProject = getActiveProject();
+    const task = new Task(taskName, dueDate, importance, description);
+
+    if (currentProject) {
+        currentProject.tasks.push(task);
+        return task;
+    }
 }
 
 // Removes project from project library array.
@@ -80,8 +86,7 @@ export function getActiveProjectId() {
 }
 
 export function getActiveProject() {
-    if (currentActiveProject !== null) {
-        return projectLibrary.find(p => p.id === currentActiveProject);
-    }
-    return null;
+    return currentActiveProject !== null 
+        ? projectLibrary.find(p => p.id === currentActiveProject) 
+        : null;
 }

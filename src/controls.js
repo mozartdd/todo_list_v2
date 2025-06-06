@@ -3,7 +3,7 @@ import {
     makeNewProject,
     removeProject,
     setActiveProject,
-    projectLibrary
+    createTask
 } from "./functionality";
 
 import { updateDisplay } from "./ui.js";
@@ -29,21 +29,13 @@ createProjectDialogBtn.addEventListener("click", (event) => {
 
 // Task dialog event listeners.
 const taskDialog = document.querySelector("[data-task-dialog]");
-const addTaskBtn = document.querySelector("[data-task-btn]");
 const closeTaskBtn = document.querySelector("[data-close-task]");
 const makeTask = document.querySelector("[data-make-task]");
 const taskName = document.querySelector("[data-task-name]");
 const taskDue = document.querySelector("[data-task-due]");
 const taskPriority = document.querySelector("[data-task-priority]");
-const taskDescription = document.querySelector("[data-task-desc]")
+const taskDescription = document.querySelector("[data-task-desc]");
 
-addTaskBtn.addEventListener("click", () => {
-    taskName.value = "";
-    taskDue.value = "";
-    taskPriority.value = "";
-    taskDescription.value = "";
-    taskDialog.showModal();
-})
 
 closeTaskBtn.addEventListener("click", (event) => {
     event.preventDefault();
@@ -51,9 +43,8 @@ closeTaskBtn.addEventListener("click", (event) => {
 })
 
 makeTask.addEventListener("click", (event) => {
-    const currentProject = getActiveProject();
     if (!taskName.value.trim() || !taskDue.value || taskPriority.value === "") return;
-    currentProject.createTask(taskName.value, taskDue.value, taskPriority.value, taskDescription.value);
+    createTask(taskName.value, taskDue.value, taskPriority.value, taskDescription.value);
     event.preventDefault();
     taskDialog.close();
     updateDisplay();
@@ -77,6 +68,7 @@ export function eventDelegation() {
         // Event listener to remove project from list.
         if (target.dataset.removeProject) {
             const project = target.closest("li");
+
             if (!project) return;
             const id = project.getAttribute("data-id");
             event.stopPropagation();
@@ -87,10 +79,42 @@ export function eventDelegation() {
         // Event listener to toggle project as active.
         if (target.dataset.projectItem) {
             const project = target.closest("li");
-            if (!project) return;
             const id = project.getAttribute("data-id");
+
+            if (!project) return;
             event.stopPropagation();
             setActiveProject(id);
+            updateDisplay();
+            return;
+        }
+    });
+
+    // Task container event delegation.
+    const main = document.querySelector("main");
+    main.addEventListener("click", (event) => {
+        const target = event.target;
+        event.stopPropagation();
+
+        // Shows task dialog window
+        if (target.dataset.taskBtn) {
+            taskName.value = "";
+            taskDue.value = "";
+            taskPriority.value = "";
+            taskDescription.value = "";
+            taskDialog.showModal();
+            updateDisplay();
+            return;
+        }
+        // Removes task.
+        if (target.dataset.rmTask) {
+            const tr = target.closest("tr");
+            const currentProject = getActiveProject();
+
+            if (!tr) return;
+            const id = tr.getAttribute("data-id");
+            event.stopPropagation();
+            currentProject.removeTask(id);
+            console.log(currentProject);
             updateDisplay();
             return;
         }

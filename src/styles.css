@@ -184,6 +184,9 @@ table {
 th {
     border: 2px solid;
 }
+td {
+  border: 2px solid;
+}
 dialog {
   margin: auto;
 
