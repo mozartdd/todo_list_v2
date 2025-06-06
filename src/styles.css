@@ -181,6 +181,9 @@ table {
 
     margin-top: var(--medium-spacing);
 }
+.completed {
+  background-color: var(--completed);
+}
 th {
     border: 2px solid;
 }

@@ -114,7 +114,19 @@ export function eventDelegation() {
             const id = tr.getAttribute("data-id");
             event.stopPropagation();
             currentProject.removeTask(id);
-            console.log(currentProject);
+            updateDisplay();
+            return;
+        }
+        // Toggles task as completed or not.
+        if (target.dataset.completeTask) {
+            const tr = target.closest("tr");
+            const currentProject = getActiveProject();
+            
+            if (!tr) return;
+            const id = tr.getAttribute("data-id");
+            event.stopPropagation();
+            const currentTask = currentProject.tasks.find(task => task.id === id);
+            currentTask.toggleTaskStatus(id);
             updateDisplay();
             return;
         }

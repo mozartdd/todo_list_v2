@@ -2,6 +2,7 @@ import { projectLibrary, getActiveProject } from "./functionality";
 
 const projectContainer = document.querySelector("ul");
 const taskContainer = document.querySelector("tbody");
+const taskFooter = document.querySelector("tfoot");
 const currentProjectContainer = document.querySelector("[data-current-project]");
 
 export function updateDisplay() {
@@ -20,6 +21,7 @@ function renderProjects() {
         projectItem.dataset.id = project.id;
         projectItem.textContent = project.name;
 
+        // Button to remove/delete project from screen & project library.
         const closeButton = document.createElement("button");
         closeButton.dataset.removeProject = "true";
         closeButton.classList.add("delete-project-btn")
@@ -42,24 +44,44 @@ function renderCurrentProject() {
 
 // Iterates over all tasks and displays it's current state.
 function renderTasks() {
+    taskFooter.innerHTML = ``;
     taskContainer.innerHTML = ``;
     const activeProject = getActiveProject();
 
     if (activeProject === null) return;
     else {
         activeProject.tasks.forEach((task) => {
-        const tr = document.createElement("tr");
-        tr.dataset.id = "true";
-        tr.dataset.id = task.id;
-        tr.innerHTML = `
-            <td>${task.importance}</td>
-            <td>${task.taskName}</td>
-            <td>${task.dueDate}</td>
-            <td>${task.description}</td>
-            <td><button data-rm-task="true">x</button></td>
-            `
-        taskContainer.appendChild(tr);
-    })
+            if (task.isCompleted === false) {
+                const tr = document.createElement("tr");
+                tr.dataset.id = task.id;
+                tr.innerHTML = `
+                    <td>${task.importance}</td>
+                    <td>${task.taskName}</td>
+                    <td>${task.dueDate}</td>
+                    <td>${task.description}</td>
+                    <td>
+                        <input data-complete-task="true" type="checkbox">
+                        <button data-rm-task="true">x</button>
+                    </td>
+                    `
+                taskContainer.appendChild(tr);
+            } else {
+                const tr = document.createElement("tr");
+                tr.classList.add("completed")
+                tr.dataset.id = task.id;
+                tr.innerHTML = `
+                    <td>${task.importance}</td>
+                    <td>${task.taskName}</td>
+                    <td>${task.dueDate}</td>
+                    <td>${task.description}</td>
+                    <td>
+                        <input data-complete-task="true" type="checkbox">
+                        <button data-rm-task="true">x</button>
+                    </td>
+                    `
+                taskFooter.appendChild(tr);
+            }
+        })
     }
 }
 
