@@ -6,6 +6,7 @@ const taskFooter = document.querySelector("tfoot");
 const currentProjectContainer = document.querySelector("[data-current-project]");
 
 export function updateDisplay() {
+    console.log(projectLibrary);
     renderProjects();
     renderCurrentProject();
     renderTasks();
@@ -57,7 +58,7 @@ function renderTasks() {
                 tr.innerHTML = `
                     <td>${task.importance}</td>
                     <td>${task.taskName}</td>
-                    <td>${task.dueDate}</td>
+                    <td>${task.dueDate = task.dueDate}</td>
                     <td>${task.description}</td>
                     <td>
                         <input data-complete-task="true" type="checkbox">

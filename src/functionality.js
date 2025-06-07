@@ -22,7 +22,7 @@ export class Task {
         this.isCompleted = false;
         this.id = `Task-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
         this.taskName = taskName;
-        this.dueDate = dueDate;
+        this.dueDate = computeTimeLeft(dueDate); 
         this.importance = importance;
         this.description = description;
     }
@@ -31,6 +31,22 @@ export class Task {
     toggleTaskStatus() {
         this.isCompleted = !this.isCompleted;
     }
+    }
+
+function computeTimeLeft(dueDate) {
+        const currentDate = new Date;
+        const userDate = new Date(dueDate);
+        const timeDifference = userDate - currentDate;
+        
+        let result =  Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+        if (result > 1) {
+            return result + " days";
+        } else if (result === 1) {
+            result = Math.ceil(timeDifference / (1000 * 60 * 60));
+            return result + " hrs"
+        } else {
+            return "time out";
+        }
     }
 
 // Creates new Project and adds it to project library.
