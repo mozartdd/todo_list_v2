@@ -1,4 +1,4 @@
-import { projectLibrary, getActiveProject } from "./functionality";
+import { projectLibrary, getActiveProject, sortTasks } from "./functionality";
 
 const projectContainer = document.querySelector("ul");
 const taskContainer = document.querySelector("tbody");
@@ -7,6 +7,7 @@ const currentProjectContainer = document.querySelector("[data-current-project]")
 
 export function updateDisplay() {
     console.log(projectLibrary);
+    sortTasks();
     renderProjects();
     renderCurrentProject();
     renderTasks();

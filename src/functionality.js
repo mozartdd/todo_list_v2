@@ -33,21 +33,30 @@ export class Task {
     }
     }
 
+// Calculates how far is task's due date in days.
 function computeTimeLeft(dueDate) {
-        const currentDate = new Date;
+        const currentDate = new Date();
         const userDate = new Date(dueDate);
         const timeDifference = userDate - currentDate;
-        
         let result =  Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
         if (result > 1) {
             return result + " days";
         } else if (result === 1) {
-            result = Math.ceil(timeDifference / (1000 * 60 * 60));
-            return result + " hrs"
-        } else {
-            return "time out";
+            return result + " day"
+        } else if (timeDifference < 0) {
+            return "0 days";
         }
     }
+
+// Sorts tasks by time left to complete it.
+export function sortTasks() {
+    const currentProject = getActiveProject()
+
+    currentProject.tasks.sort((firstDate, secondDate) => {
+        return firstDate.dueDate.split(" ")[0] - secondDate.dueDate.split(" ")[0];
+    })
+}
 
 // Creates new Project and adds it to project library.
 export function makeNewProject(projectName) {

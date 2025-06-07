@@ -3,7 +3,8 @@ import {
     makeNewProject,
     removeProject,
     setActiveProject,
-    createTask
+    createTask,
+    sortTasks
 } from "./functionality";
 
 import { updateDisplay } from "./ui.js";
