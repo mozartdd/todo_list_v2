@@ -18,6 +18,7 @@
         </div>
     </nav>
     <main>
+        <!-- Project submit dialog window -->
         <dialog data-project-dialog>
             <form>
                 <button data-close-module>x</button>
@@ -26,6 +27,7 @@
                 <button type="submit" data-make-project>Make project</button>
             </form>
         </dialog>
+        <!-- Task submit dialog window -->
         <dialog data-task-dialog>
             <form>
                 <button data-close-task>x</button>
@@ -48,6 +50,29 @@
                 <button type="submit" data-make-task>Make task</button>
             </form>
         </dialog>
+        <!-- Task edit dialog window -->
+        <dialog data-edit-dialog>
+            <form>
+                <button data-exit-task>x</button>
+                <label for="task-name" name="name">Task</label>
+                <input data-task-names type="text" name="task-name" id="name" required>
+
+                <label for="due-date" name="due">Due date</label>
+                <input data-task-dues type="date" name="task-due" id="due-date" required>
+
+                <label for="priority">Task priority</label>
+                <select data-task-prior name="priority" id="priority" required  >
+                    <option value="none" selected disabled>Select task priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+
+                <label for="task-description" name="description">Description</label>
+                <textarea data-task-description name="description" id="task-description"></textarea>
+                <button type="submit" data-submit-edit>Edit task</button>
+            </form>
+        </dialog>
         <header>
             <div id="current-project">
             <p>Current project</p>
@@ -61,7 +86,7 @@
                 <tr>
                     <th scope="col">Priority</th>
                     <th scope="col">Task</th>
-                    <th scope="col">Days left <span id="sorting-btn" data-sort-btn="true">*</span></th>
+                    <th scope="col">Remaining time <span id="sorting-btn" data-sort-btn="true">*</span></th>
                     <th scope="col">Description</th>
                     <th scope="col">Action</th>
                 </tr>

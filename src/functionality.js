@@ -33,17 +33,27 @@ export class Task {
     toggleTaskStatus() {
         this.isCompleted = !this.isCompleted;
     }
+    // Edits tasks values after it is created.
+    editTask(taskName, dueDate, importance, description, taskId) {
+        if (this.id === taskId) {
+            this.taskName = taskName;
+            this.dueDate = computeTimeLeft(dueDate); 
+            this.importance = importance;
+            this.description = description;  
+        }
+        return;
     }
+}
 
 // Calculates how far is task's due date in days.
 function computeTimeLeft(dueDate) {
-        const currentDate = new Date();
-        const userDate = new Date(dueDate);
-        const timeDifference = userDate - currentDate;
-        let result =  Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    const currentDate = new Date();
+    const userDate = new Date(dueDate);
+    const timeDifference = userDate - currentDate;
+    let result =  Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
-        return result = result >= 1 ? result : 0;
-    }
+    return result = result >= 1 ? result : 0;
+}
 
 // Sorts tasks by time left to complete it.
 export function sortTasks() {

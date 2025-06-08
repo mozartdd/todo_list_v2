@@ -57,11 +57,12 @@ function renderTasks() {
                 tr.innerHTML = `
                     <td>${task.importance}</td>
                     <td>${task.taskName}</td>
-                    <td>${task.dueDate = task.dueDate}</td>
+                    <td>${task.dueDate = task.dueDate} days</td>
                     <td>${task.description}</td>
                     <td>
                         <input data-complete-task="true" type="checkbox">
                         <button data-rm-task="true">x</button>
+                        <button data-edit-task="true">E</button>
                     </td>
                     `
                 taskContainer.appendChild(tr);
@@ -75,8 +76,9 @@ function renderTasks() {
                     <td>${task.dueDate}</td>
                     <td>${task.description}</td>
                     <td>
-                        <input data-complete-task="true" type="checkbox">
+                        <input data-complete-task="true" type="checkbox" checked>
                         <button data-rm-task="true">x</button>
+                        <button data-edit-task="true">E</button>
                     </td>
                     `
                 taskFooter.appendChild(tr);

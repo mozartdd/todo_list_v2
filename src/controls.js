@@ -28,19 +28,51 @@ createProjectDialogBtn.addEventListener("click", (event) => {
     updateDisplay();
 });
 
-// Task dialog event listeners.
+// Edit task dialog event listeners.
+const submitTaskEdit = document.querySelector("[data-submit-edit]");
+const editDialogWindow = document.querySelector("[data-edit-dialog]");
+const exitTask = document.querySelector("[data-exit-task]");
+
+const editTaskName = document.querySelector("[data-task-names]");
+const editTaskDue = document.querySelector("[data-task-dues]");
+const editTaskPriority = document.querySelector("[data-task-prior]");
+const editTaskDescription = document.querySelector("[data-task-description]");
+let editTaskId;
+
+// Closes task edit dialog window.
+exitTask.addEventListener("click", (event) => {
+    event.preventDefault();
+    editDialogWindow.close();
+})
+
+// Submit task edit dialog window.
+submitTaskEdit.addEventListener("click", (event) => {
+    const currentProject = getActiveProject();
+
+    event.preventDefault();
+    event.stopPropagation();
+    currentProject.tasks.forEach((task) => {
+        task.editTask(editTaskName.value, editTaskDue.value, editTaskPriority.value, editTaskDescription.value, editTaskId);
+    })
+    editDialogWindow.close();
+    updateDisplay();
+})
+
+// Create task dialog event listeners
 const taskDialog = document.querySelector("[data-task-dialog]");
 const closeTaskBtn = document.querySelector("[data-close-task]");
 const makeTask = document.querySelector("[data-make-task]");
+
 const taskName = document.querySelector("[data-task-name]");
 const taskDue = document.querySelector("[data-task-due]");
 const taskPriority = document.querySelector("[data-task-priority]");
 const taskDescription = document.querySelector("[data-task-desc]");
 
-
+// Closes task creation dialog window.
 closeTaskBtn.addEventListener("click", (event) => {
     event.preventDefault();
     taskDialog.close();
+    editDialogWindow.close();
 })
 
 makeTask.addEventListener("click", (event) => {
@@ -50,7 +82,6 @@ makeTask.addEventListener("click", (event) => {
     taskDialog.close();
     updateDisplay();
 })
-
 
 export function eventDelegation() {
     // Project container event delegation.
@@ -138,5 +169,23 @@ export function eventDelegation() {
             updateDisplay();
             return;
         }
+        // Opens task editor and sets it's value to correct task value.
+        if (target.dataset.editTask) {
+            const currentProject = getActiveProject();
+            const tr = target.closest("tr");
+
+            if (!tr) return;
+            const id = tr.getAttribute("data-id");
+            event.stopPropagation();
+            const currentTask = currentProject.tasks.find(task => task.id === id);
+            editTaskName.value = currentTask.taskName;
+            editTaskPriority.value = currentTask.importance;
+            editTaskDescription.value = currentTask.description;
+            editTaskId = currentTask.id;
+            editDialogWindow.showModal();
+            updateDisplay();
+            return;
+        }
     });
+    console.log(getActiveProject());
 }
