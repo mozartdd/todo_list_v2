@@ -131,5 +131,12 @@ export function eventDelegation() {
             updateDisplay();
             return;
         }
+        // Sorting button conditional.
+        if (target.dataset.sortBtn) {
+            event.stopPropagation();
+            sortTasks();
+            updateDisplay();
+            return;
+        }
     });
 }

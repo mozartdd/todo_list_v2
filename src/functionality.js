@@ -1,5 +1,7 @@
+const generateUniqueId = require('generate-unique-id');
 export const projectLibrary = [];
 export let currentActiveProject = null;
+ let lowToHigh = true; // Checks what order should tasks be sorted by date.
 
 export default class Project {
     static id = 0;
@@ -20,7 +22,7 @@ export default class Project {
 export class Task {
     constructor(taskName, dueDate, importance, description) {
         this.isCompleted = false;
-        this.id = `Task-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+        this.id = `Task-${generateUniqueId()}`;
         this.taskName = taskName;
         this.dueDate = computeTimeLeft(dueDate); 
         this.importance = importance;
@@ -40,22 +42,19 @@ function computeTimeLeft(dueDate) {
         const timeDifference = userDate - currentDate;
         let result =  Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
-        if (result > 1) {
-            return result + " days";
-        } else if (result === 1) {
-            return result + " day"
-        } else if (timeDifference < 0) {
-            return "0 days";
-        }
+        return result = result >= 1 ? result : 0;
     }
 
 // Sorts tasks by time left to complete it.
 export function sortTasks() {
-    const currentProject = getActiveProject()
+    const currentProject = getActiveProject();
 
-    currentProject.tasks.sort((firstDate, secondDate) => {
-        return firstDate.dueDate.split(" ")[0] - secondDate.dueDate.split(" ")[0];
+    currentProject.tasks.sort((firstTask, secondTask) => {
+        return lowToHigh
+        ? firstTask.dueDate - secondTask.dueDate
+        : secondTask.dueDate - firstTask.dueDate;
     })
+    lowToHigh = !lowToHigh;
 }
 
 // Creates new Project and adds it to project library.

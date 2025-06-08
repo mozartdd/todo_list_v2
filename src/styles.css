@@ -198,6 +198,10 @@ dialog {
   border: 5px solid var(--high-priority);
   box-shadow: 0 0 15px var(--high-priority);
 }
+#sorting-btn {
+  cursor: pointer;
+  background-color: red;
+}
 /* PROJECT DIALOG */
 dialog form {
   font-size: var(--medium-font);
