@@ -9,6 +9,11 @@ import {
 
 import { updateDisplay } from "./ui.js";
 
+// Helper function to get closest element.
+function getClosest(element, target) {
+    return target.closest(element);
+}
+
 // Project dialog event listeners.
 const projectDialog = document.querySelector("[data-project-dialog]");
 const closeProjectDialogBtn = document.querySelector("[data-close-module]");
@@ -99,7 +104,7 @@ export function eventDelegation() {
         }
         // Event listener to remove project from list.
         if (target.dataset.removeProject) {
-            const project = target.closest("li");
+            const project = getClosest("li", event.target);
 
             if (!project) return;
             const id = project.getAttribute("data-id");
@@ -110,7 +115,7 @@ export function eventDelegation() {
         }
         // Event listener to toggle project as active.
         if (target.dataset.projectItem) {
-            const project = target.closest("li");
+            const project = getClosest("li", event.target);
             const id = project.getAttribute("data-id");
 
             if (!project) return;
@@ -139,7 +144,7 @@ export function eventDelegation() {
         }
         // Removes task.
         if (target.dataset.rmTask) {
-            const tr = target.closest("tr");
+            const tr = getClosest("tr", event.target);
             const currentProject = getActiveProject();
 
             if (!tr) return;
@@ -151,18 +156,18 @@ export function eventDelegation() {
         }
         // Toggles task as completed or not.
         if (target.dataset.completeTask) {
-            const tr = target.closest("tr");
+            const tr = getClosest("tr", event.target);
             const currentProject = getActiveProject();
             
             if (!tr) return;
             const id = tr.getAttribute("data-id");
-            event.stopPropagation();
             const currentTask = currentProject.tasks.find(task => task.id === id);
+            event.stopPropagation();
             currentTask.toggleTaskStatus();
             updateDisplay();
             return;
         }
-        // Sorting button conditional.
+        // Task sorting button conditional.
         if (target.dataset.sortBtn) {
             event.stopPropagation();
             sortTasks();
@@ -172,20 +177,23 @@ export function eventDelegation() {
         // Opens task editor and sets it's value to correct task value.
         if (target.dataset.editTask) {
             const currentProject = getActiveProject();
-            const tr = target.closest("tr");
+            const tr = getClosest("tr", event.target);
 
             if (!tr) return;
             const id = tr.getAttribute("data-id");
-            event.stopPropagation();
             const currentTask = currentProject.tasks.find(task => task.id === id);
+            event.stopPropagation();
+
+            // Sets values of edit dialog window to values of task it's being fired on.
             editTaskName.value = currentTask.taskName;
             editTaskPriority.value = currentTask.importance;
             editTaskDescription.value = currentTask.description;
+            editTaskDue.value = "";
             editTaskId = currentTask.id;
+
             editDialogWindow.showModal();
             updateDisplay();
             return;
         }
     });
-    console.log(getActiveProject());
 }

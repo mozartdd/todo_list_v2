@@ -1,7 +1,7 @@
 const generateUniqueId = require('generate-unique-id');
 export const projectLibrary = [];
-export let currentActiveProject = null;
- let lowToHigh = true; // Checks what order should tasks be sorted by date.
+let currentActiveProject = null;
+let lowToHigh = true; // Boolean which tells in what order should tasks be sorted.
 
 export default class Project {
     static id = 0;
@@ -33,7 +33,7 @@ export class Task {
     toggleTaskStatus() {
         this.isCompleted = !this.isCompleted;
     }
-    // Edits tasks values after it is created.
+    // Edit task after it is created.
     editTask(taskName, dueDate, importance, description, taskId) {
         if (this.id === taskId) {
             this.taskName = taskName;
@@ -60,9 +60,9 @@ export function sortTasks() {
     const currentProject = getActiveProject();
 
     currentProject.tasks.sort((firstTask, secondTask) => {
-        return lowToHigh
-        ? firstTask.dueDate - secondTask.dueDate
-        : secondTask.dueDate - firstTask.dueDate;
+        return lowToHigh // If true,
+        ? firstTask.dueDate - secondTask.dueDate // firstTask goes before second task,
+        : secondTask.dueDate - firstTask.dueDate;// else secondTask goes before first.
     })
     lowToHigh = !lowToHigh;
 }

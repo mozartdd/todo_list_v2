@@ -52,38 +52,30 @@ function renderTasks() {
     else {
         activeProject.tasks.forEach((task) => {
             if (task.isCompleted === false) {
-                const tr = document.createElement("tr");
-                tr.dataset.id = task.id;
-                tr.innerHTML = `
-                    <td>${task.importance}</td>
-                    <td>${task.taskName}</td>
-                    <td>${task.dueDate = task.dueDate} days</td>
-                    <td>${task.description}</td>
-                    <td>
-                        <input data-complete-task="true" type="checkbox">
-                        <button data-rm-task="true">x</button>
-                        <button data-edit-task="true">E</button>
-                    </td>
-                    `
-                taskContainer.appendChild(tr);
+                taskContentHtml(taskContainer, "not-completed", task);
             } else {
-                const tr = document.createElement("tr");
-                tr.classList.add("completed")
-                tr.dataset.id = task.id;
-                tr.innerHTML = `
-                    <td>${task.importance}</td>
-                    <td>${task.taskName}</td>
-                    <td>${task.dueDate}</td>
-                    <td>${task.description}</td>
-                    <td>
-                        <input data-complete-task="true" type="checkbox" checked>
-                        <button data-rm-task="true">x</button>
-                        <button data-edit-task="true">E</button>
-                    </td>
-                    `
-                taskFooter.appendChild(tr);
+                taskContentHtml(taskFooter, "completed", task, "checked");
             }
         })
     }
+}
+
+// Function which render content of task section of display. 
+function taskContentHtml(parentElement, classList, task, status) {
+    const tr = document.createElement("tr");
+    tr.classList.add(classList)
+    tr.dataset.id = task.id;
+    tr.innerHTML = `
+        <td>${task.importance} days</td>
+        <td>${task.taskName} days</td>
+        <td>${task.dueDate} days</td>
+        <td>${task.description} days</td>
+        <td>
+            <input data-complete-task="true" type="checkbox" ${status}>
+            <button data-rm-task="true">x</button>
+            <button data-edit-task="true">E</button>
+            </td>
+    `
+    parentElement.appendChild(tr);
 }
 
