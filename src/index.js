@@ -1,18 +1,20 @@
 import "./styles.css";
-import { createTask, makeNewProject } from "./functionality.js";
+import { makeNewProject, createTask } from "./functionality.js";
+import { setInitialProjects } from "./storage.js";
 import { updateDisplay } from "./ui.js";
 import { eventDelegation } from "./controls.js";
 
-setInitialProjects()
+renderInitialTask()
+setInitialProjects();
 updateDisplay();
 eventDelegation();
 
-function setInitialProjects() {
-    makeNewProject("Study web development");
-    makeNewProject("Clean house");
-    createTask("Learn destructuring", "2025-06-21", "low", "Focus on array destructuring");
-    createTask("Practice async/await", "2025-07-01", "medium", "Understand async flow");
-    createTask("Master closures", "2025-06-30", "high", "Deep dive into closures");
-    createTask("Review ES6 features", "2025-07-15", "medium", "Go through new syntax");
-    createTask("Build small project", "2025-08-01", "high", "Apply destructuring and async");
+function renderInitialTask() {
+    const project1 = makeNewProject("Personal");
+    createTask("Buy groceries", "2025-06-10", "high", "Milk, eggs, bread");
+    createTask("Call plumber", "2025-06-11", "medium", "Fix kitchen leak");
+    createTask("Finish report", "2025-06-12", "high", "Monthly sales analysis");
+    createTask("Team meeting", "2025-06-13", "low", "Weekly sync-up");
+    createTask("Morning run", "2025-06-09", "medium", "5km jog around park");
+    createTask("Yoga session", "2025-06-10", "low", "30 minutes stretching");
 }

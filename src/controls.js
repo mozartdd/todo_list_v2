@@ -4,10 +4,12 @@ import {
     removeProject,
     setActiveProject,
     createTask,
-    sortTasks
+    sortTasks,
 } from "./functionality";
 
 import { updateDisplay } from "./ui.js";
+
+import { saveToLocalStorage } from "./storage.js";
 
 // Helper function to get closest element.
 function getClosest(element, target) {
@@ -27,7 +29,8 @@ closeProjectDialogBtn.addEventListener("click", (event) => {
 
 createProjectDialogBtn.addEventListener("click", (event) => {
     if (!projectNameInput.value.trim()) return;
-    makeNewProject(projectNameInput.value)
+    makeNewProject(projectNameInput.value);
+    saveToLocalStorage();
     event.preventDefault();
     projectDialog.close();
     updateDisplay();
@@ -59,6 +62,7 @@ submitTaskEdit.addEventListener("click", (event) => {
     currentProject.tasks.forEach((task) => {
         task.editTask(editTaskName.value, editTaskDue.value, editTaskPriority.value, editTaskDescription.value, editTaskId);
     })
+    saveToLocalStorage();
     editDialogWindow.close();
     updateDisplay();
 })
@@ -83,6 +87,7 @@ closeTaskBtn.addEventListener("click", (event) => {
 makeTask.addEventListener("click", (event) => {
     if (!taskName.value.trim() || !taskDue.value || taskPriority.value === "") return;
     createTask(taskName.value, taskDue.value, taskPriority.value, taskDescription.value);
+    saveToLocalStorage();
     event.preventDefault();
     taskDialog.close();
     updateDisplay();
@@ -110,6 +115,7 @@ export function eventDelegation() {
             const id = project.getAttribute("data-id");
             event.stopPropagation();
             removeProject(id);
+            saveToLocalStorage();
             updateDisplay();
             return;
         }
@@ -151,6 +157,7 @@ export function eventDelegation() {
             const id = tr.getAttribute("data-id");
             event.stopPropagation();
             currentProject.removeTask(id);
+            saveToLocalStorage();
             updateDisplay();
             return;
         }
@@ -164,6 +171,7 @@ export function eventDelegation() {
             const currentTask = currentProject.tasks.find(task => task.id === id);
             event.stopPropagation();
             currentTask.toggleTaskStatus();
+            saveToLocalStorage();
             updateDisplay();
             return;
         }

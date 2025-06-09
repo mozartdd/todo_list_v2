@@ -3,7 +3,7 @@ export const projectLibrary = [];
 let currentActiveProject = null;
 let lowToHigh = true; // Boolean which tells in what order should tasks be sorted.
 
-export default class Project {
+export class Project {
     static id = 0;
     constructor (name) {
         this.id = `Project-${++Project.id}`;
@@ -11,6 +11,13 @@ export default class Project {
         this.tasks = [];
     }
 
+    static from(obj) {
+        const project = new Project(obj.name);
+        project.id = obj.id;
+        project.tasks = obj.tasks.map(t => Object.assign(new Task(), t));
+        return project;
+    }
+ 
     removeTask(taskId) {
         const idx = this.tasks.findIndex(task => task.id === taskId);
         if (idx !== -1) {
@@ -72,7 +79,7 @@ export function makeNewProject(projectName) {
     if (!projectName) return null;
 
     const project = new Project(projectName);
-    projectLibrary.push(project); 
+    projectLibrary.push(project);
 
     if (!currentActiveProject) { 
         currentActiveProject = project.id;
@@ -121,7 +128,7 @@ export function getActiveProjectId() {
 }
 
 export function getActiveProject() {
-    return currentActiveProject !== null 
+    return currentActiveProject
         ? projectLibrary.find(p => p.id === currentActiveProject) 
         : null;
 }
