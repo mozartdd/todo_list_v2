@@ -18,7 +18,6 @@ A project built for [The Odin Project](https://www.theodinproject.com/) curricul
 ## Screenshots
 
 ![Screenshot From 2025-06-09 17-02-07](https://github.com/user-attachments/assets/69f390f0-9ff5-46b1-8cba-d7577bb0770c) 
-*(Include or update with an actual screenshot if desired)*
 
 ## Getting Started
 
