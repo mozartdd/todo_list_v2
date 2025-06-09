@@ -4,9 +4,8 @@ let currentActiveProject = null;
 let lowToHigh = true; // Boolean which tells in what order should tasks be sorted.
 
 export class Project {
-    static id = 0;
     constructor (name) {
-        this.id = `Project-${++Project.id}`;
+        this.id = generateUniqueId;
         this.name = name;
         this.tasks = [];
     }
