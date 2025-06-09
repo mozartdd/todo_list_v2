@@ -10,5 +10,5 @@ import { eventDelegation } from "./controls.js";
     createTask("Master closures", "2025-06-30", "high", "Deep dive into closures");
     createTask("Review ES6 features", "2025-07-15", "medium", "Go through new syntax");
     createTask("Build small project", "2025-08-01", "high", "Apply destructuring and async");
-    updateDisplay();
+    updateDisplay();34
     eventDelegation();

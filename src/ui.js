@@ -1,4 +1,8 @@
 import { projectLibrary, getActiveProject } from "./functionality";
+import editImg from "./assets/edit.svg";
+import rmImg from "./assets/rm.svg";
+import unchecked from "./assets/unchecked.svg";
+import checked from "./assets/checked.svg";
 
 const projectContainer = document.querySelector("ul");
 const taskContainer = document.querySelector("tbody");
@@ -22,10 +26,10 @@ function renderProjects() {
         projectItem.textContent = project.name;
 
         // Button to remove/delete project from screen & project library.
-        const closeButton = document.createElement("button");
+        const closeButton = document.createElement("img");
         closeButton.dataset.removeProject = "true";
         closeButton.classList.add("delete-project-btn")
-        closeButton.textContent = "x"; 
+        closeButton.setAttribute("src", rmImg); 
 
         projectContainer.appendChild(projectItem);
         projectItem.appendChild(closeButton);
@@ -52,30 +56,42 @@ function renderTasks() {
     else {
         activeProject.tasks.forEach((task) => {
             if (task.isCompleted === false) {
-                taskContentHtml(taskContainer, "not-completed", task);
+                taskContentHtml(taskContainer, "not-completed", task, true);
             } else {
-                taskContentHtml(taskFooter, "completed", task, "checked");
+                taskContentHtml(taskFooter, "completed", task, false);
             }
         })
     }
 }
 
 // Function which render content of task section of display. 
-function taskContentHtml(parentElement, classList, task, status) {
+function taskContentHtml(parentElement, classList, task, isChecked) {
     const tr = document.createElement("tr");
-    tr.classList.add(classList)
+    tr.id = classList;
     tr.dataset.id = task.id;
     tr.innerHTML = `
-        <td>${task.importance} days</td>
-        <td>${task.taskName} days</td>
-        <td>${task.dueDate} days</td>
-        <td>${task.description} days</td>
+        <td><div>${checkForCondition(tr, task.importance)}</div></td>
+        <td>${task.taskName}</td>
+        <td>${isChecked ? task.dueDate + " days" : "Completed"}</td>
+        <td>${task.description}</td>
         <td>
-            <input data-complete-task="true" type="checkbox" ${status}>
-            <button data-rm-task="true">x</button>
-            <button data-edit-task="true">E</button>
-            </td>
+            <img id="edit-task-btn" data-complete-task="true" src="${isChecked ? unchecked : checked}">
+            <img id="edit-task-btn" data-edit-task="true" src="${editImg}">
+            <img id="edit-task-btn" data-rm-task="true" src="${rmImg}">
+        </td>
     `
     parentElement.appendChild(tr);
+}
+
+// Helper function to add class to priority td.
+function checkForCondition(element, condition) {
+    if (condition === "low") {
+        element.classList = "green";
+    } else if (condition === "medium") {
+        element.classList = "orange";
+    } else if (condition === "high") {
+        element.classList = "red";
+    }
+    return "";
 }
 
