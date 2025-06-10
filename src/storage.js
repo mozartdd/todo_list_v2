@@ -3,7 +3,7 @@ import { projectLibrary, Project, setActiveProject, getActiveProjectId } from ".
 // Initial project and task declaration.
 export function setInitialProjects() {
     const restored = JSON.parse(localStorage.getItem("projectLibrary")) || [];
-    const currentActiveProject = JSON.parse(localStorage.getItem("currentActiveProject"));
+    const currentActiveProject = JSON.parse(localStorage.getItem("currentActiveProject")) || null;
 
     restored.forEach(obj => projectLibrary.push(Project.from(obj)));
 

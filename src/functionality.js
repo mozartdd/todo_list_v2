@@ -4,9 +4,8 @@ let currentActiveProject = null;
 let lowToHigh = true; // Boolean which tells in what order should tasks be sorted.
 
 export class Project {
-    static id = 0;
     constructor (name) {
-        this.id = `Project-${++Project.id}`;
+        this.id = `Project-${generateUniqueId()}`;
         this.name = name;
         this.tasks = [];
     }
@@ -120,7 +119,11 @@ export function removeProject(projectId) {
 
 // Update the active project ID to the specified project.
 export function setActiveProject(projectId) {
-    currentActiveProject = projectId;
+    if (!projectId) {
+        currentActiveProject = null;
+    } else {
+        currentActiveProject = projectId;
+    }
 }
 
 export function getActiveProjectId() {
